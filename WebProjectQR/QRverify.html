@@ -1,42 +1,35 @@
 <html>
+
 <head>
-    <title>QRCHECK</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        function SetSrc() {
-            document.getElementById("myIframe").src = document.getElementById("txtSRC").value;
-            document.getElementById("txtSRC").value = "";
+  <title>QRCHECK</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
 
-        }
-
-
-
-        function searchKeyPress(e) {
-            // look for window.event in case event isn't passed in
-            e = e || window.event;
-            if (e.keyCode == 13) {
-                document.getElementById('btnSearch').click();
-                return false;
-            }
-            return true;
-        }
-    </script>
 </head>
+
 <body>
-    <form>
-        Ожидание ввода со сканера:
-        <input type="text" autofocus id="txtSRC" onkeypress="return searchKeyPress(event);"/>
-        <input type="button" id="btnSearch" value="GO" onclick="SetSrc()" />
+  <script type="text/javascript">
+    function SetSrc() {
+      document.getElementById("myIframe").src = document.getElementById("txtSRC").value;
+      document.getElementById("txtSRC").value = "";
+    }
 
+    function searchKeyPress(e) {
+      // look for window.event in case event isn't passed in
+      e = e || window.event;
+      if (e.keyCode == 13) {
+        document.getElementById('btnSearch').click();
+        return false;
+      }
+      return true;
+    }
+  </script>
+  <form>
+    Ожидание ввода со сканера:
+    <input type="text" autofocus id="txtSRC" onkeypress="return searchKeyPress(event);" />
+    <input type="button" id="btnSearch" value="GO" onclick="SetSrc()" />
 
-
-
-
-    </form>
-    <iframe id="myIframe" src="" width=100% height=94%></iframe>
+  </form>
+  <iframe id="myIframe" src="" width=100% height=94%></iframe>
 </body>
+
 </html>
-
-
-
-
