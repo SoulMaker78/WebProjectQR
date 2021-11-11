@@ -3,16 +3,31 @@
 <head>
   <title>QRCHECK</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
-
-</head>
-
-<body>
   <script type="text/javascript">
     function SetSrc() {
-      document.getElementById("myIframe").src = document.getElementById("txtSRC").value;
-      document.getElementById("txtSRC").value = "";
-    }
+      let validHosts = ["gosuslugi.ru", "www.gosuslugi.ru"]
+      let validPathPrefix = "/covid-cert/verify"
+      let textBox = document.getElementById("txtSRC")
+      let qrText = textBox.value
+      textBox.value = ""
 
+			try {
+      	var url = new URL(qrText)
+      } catch(error) {
+      	var url = {}
+      }
+
+      if (validHosts.includes(url.hostname) && url.pathname.startsWith(validPathPrefix)) {
+        document.getElementById("myIframe").src = qrText;
+      } else {
+	  
+	  document.getElementById("myIframe").src = "https://xn--80aesfpebagmfblc0a.xn--p1ai/news/20210719-1216.html";
+        //alert(`Наебалого: ${qrText}`)
+      }
+    }
+  </script>
+
+  <script>
     function searchKeyPress(e) {
       // look for window.event in case event isn't passed in
       e = e || window.event;
@@ -23,6 +38,9 @@
       return true;
     }
   </script>
+</head>
+
+<body>
   <form>
     Ожидание ввода со сканера:
     <input type="text" autofocus id="txtSRC" onkeypress="return searchKeyPress(event);" />
