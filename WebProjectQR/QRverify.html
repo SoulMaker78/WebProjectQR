@@ -1,35 +1,39 @@
 <html>
+<!-- Инструкция:
+Скопируйте весь код в файл с расширением .html
+Запускайте браузером (chrome в самый раз).
+Обратная связь: t.me/SoulMaker -->
 
 <head>
+
   <title>QRCHECK</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
   <script type="text/javascript">
     function SetSrc() {
-      let validHosts = ["gosuslugi.ru", "www.gosuslugi.ru"]
-      let validPathPrefix = "/covid-cert"
+      let validHosts = ["gosuslugi.ru", "www.gosuslugi.ru", "gu.spb.ru", "immune.mos.ru"] //сюда добавлены базовые российские домены 
+      let validPathPrefix = "/" //проверка директорий 
       let textBox = document.getElementById("txtSRC")
       let qrText = textBox.value
       textBox.value = ""
-
-			try {
-      	var url = new URL(qrText)
-      } catch(error) {
-      	var url = {}
+      try {
+        var url = new URL(qrText)
+      } catch (error) {
+        var url = {}
       }
-
       if (validHosts.includes(url.hostname) && url.pathname.startsWith(validPathPrefix)) {
         document.getElementById("myIframe").src = qrText;
       } else {
-	  
-	  document.getElementById("myIframe").src = "https://xn--80aesfpebagmfblc0a.xn--p1ai/news/20210719-1216.html";
-        //alert(`Наебалого: ${qrText}`)
+        document.getElementById("myIframe").src = "https://xn--80aesfpebagmfblc0a.xn--p1ai/news/20210719-1216.html"; //переход на эту страничку при неверном URL из QR кода
+        //либо включаем алерт (не рекомендуется, придется закрывать его вручную)
+        //alert(`Ошибка: ${qrText}`)
       }
     }
-  </script>
 
-  <script>
     function searchKeyPress(e) {
-      // look for window.event in case event isn't passed in
+      // Обработка нажатия ENTER. Важная функция для автоматизации процесса. Обычный принцип работы сканера ШК - это по сути ввод считанной информации и нажатие клавиши "ENTER"
       e = e || window.event;
       if (e.keyCode == 13) {
         document.getElementById('btnSearch').click();
@@ -38,16 +42,15 @@
       return true;
     }
   </script>
-</head>
 
-<body>
   <form>
     Ожидание ввода со сканера:
-    <input type="text" autofocus id="txtSRC" onkeypress="return searchKeyPress(event);" />
+    <input type="text" autofocus id="txtSRC" onkeypress="return searchKeyPress(event);" /> <!-- ввод кода со сканера ШК с автофокусом -->
     <input type="button" id="btnSearch" value="GO" onclick="SetSrc()" />
 
   </form>
   <iframe id="myIframe" src="" width=100% height=94%></iframe>
+  <a target="_blank" href="https://codepen.io/Boitsov/pen/OJjZzLx">Код доступен здесь</a>
 </body>
 
 </html>
